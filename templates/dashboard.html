@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Dashboard</h2>
+    <p>Welcome, {{ user.username }}!</p>
+    <nav class="dashboard-nav">
+        {% if user.role != 'patient' %}
+            <a href="{{ url_for('schedule_surgery') }}">Schedule Surgery</a>
+            <a href="{{ url_for('add_medical_record') }}">Add Medical Record</a>
+        {% endif %}
+        <a href="{{ url_for('medical_records') }}">Medical Records</a>
+        <a href="{{ url_for('view_surgeries') }}">View Surgeries</a>
+        <a href="{{ url_for('patient_info') }}">Patient Info</a>
+        <a href="{{ url_for('doctor_info') }}">Doctor Info</a>
+    </nav>
+{% endblock %}

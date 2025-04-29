@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>View Surgeries</h2>
+    {% if surgeries %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Surgery Type</th>
+                    <th>Scheduled Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for surgery in surgeries %}
+                    <tr>
+                        <td>{{ surgery.id }}</td>
+                        <td>{{ surgery.patient.username }} (ID: {{ surgery.patient_id }})</td>
+                        <td>{{ surgery.doctor.username }} (ID: {{ surgery.doctor_id }})</td>
+                        <td>{{ surgery.surgery_type }}</td>
+                        <td>{{ surgery.scheduled_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No surgeries scheduled.</p>
+    {% endif %}
+{% endblock %}

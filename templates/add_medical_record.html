@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Add Medical Record</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="patient_id">Patient:</label>
+            <select id="patient_id" name="patient_id" required>
+                {% for patient in patients %}
+                    <option value="{{ patient.id }}">{{ patient.id }} - {{ patient.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="diagnosis">Diagnosis:</label>
+            <input type="text" id="diagnosis" name="diagnosis" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="treatment">Treatment:</label>
+            <input type="text" id="treatment" name="treatment" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="medications">Medications:</label>
+            <input type="text" id="medications" name="medications">
+        </div>
+        
+        <div class="form-group">
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+        
+        <button type="submit">Add Record</button>
+    </form>
+{% endblock %}

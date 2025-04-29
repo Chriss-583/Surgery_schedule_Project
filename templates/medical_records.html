@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Medical Records</h2>
+    
+    {% if current_user.role != 'patient' %}
+        <div class="action-buttons">
+            <a href="{{ url_for('add_medical_record') }}" class="button">Add New Medical Record</a>
+        </div>
+    {% endif %}
+    
+    {% if records %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Diagnosis</th>
+                    <th>Treatment</th>
+                    <th>Medications</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>
+                            {% for patient in patients %}
+                                {% if patient.id == record.patient_id %}
+                                    {{ patient.username }} (ID: {{ patient.id }})
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ record.diagnosis }}</td>
+                        <td>{{ record.treatment }}</td>
+                        <td>{{ record.medications }}</td>
+                        <td>{{ record.date_created.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <a href="{{ url_for('view_patient_medical_data', patient_id=record.patient_id) }}">View Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No medical records found.</p>
+    {% endif %}
+{% endblock %}
